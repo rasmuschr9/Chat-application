@@ -1,0 +1,21 @@
+<% include header%>
+
+<h1><%= title%></h1>
+
+<%if (userNames.length) { %>
+<h3>Users online</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <ul>
+            <% userNames.forEach(function(user) { %>
+                <li><%=user.userName%></li>
+            <% }) %>
+        </ul>
+    </div>
+</div>
+
+<% } else { %>   <a class="btn btn-default" href="/new-user">Login</a>
+<% } %>
+
+
+<% include footer%>

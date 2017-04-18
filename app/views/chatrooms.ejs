@@ -1,0 +1,84 @@
+<% include header%>
+<nav class="navbar navbar-default">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="/chatrooms">Home</a></li>
+            <%if (allRooms.length) { %>
+                <% allRooms.forEach(function(room) { %>
+                <li><a href="/<%=room.chatroom%>"><%=room.chatroom%></a></li>
+            <% })} %>
+            <li><a href="/create-chatroom"><span class="glyphicon glyphicon-plus"></span></a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+
+<div class="container-fluid">
+    <div class="col-md-8">
+        <h3><%= activeRoom %></h3>
+        <%if (allMessages.length) { %>
+        <div class="panel panel-default">
+            <div id="chat-window" class="panel-body">
+                <% allMessages.forEach(function(chat) { %>
+                    <div class="container-fluid">
+                        <%= chat.users%><span class="pull-right"><%= chat.time.toLocaleDateString() + " " + "Kl. " + chat.time.getHours() + "." + chat.time.getMinutes() %></span>
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        <%=chat.messages%>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+        <div id="welcome-message">
+            <h4>Dansk</h4>
+            <p>Vælg hvilket chatrum du vil kommunikere i, eller opret et nyt.</p>
+            <p>For at chatte i et allerede oprettet chatrum, vælg et af punkterne i menuen på toppen af siden. Er du på en mobil, tryk på burgermenuen
+                og vælg et emne. <br> For at oprettet et nyt emne, tryk på plusset(+) i menuen.</p>
+            <p>Du kan se aktive brugere på chatten i højre side. Er du på mobil, kan du se dem i bunden efter denne besked.</p>
+
+
+            <h4>English</h4>
+            <p>Choose which room you wish to communicate in, or create a new chatroom</p>
+            <p>To enter an existing chat, choose the desired subject in the navbar on the top of the page. If you are on af mobile device,
+                click the burgermenu icon, and select the chat you wish to join.<br>To create a new chatroom, select the plus(+) icon ine the navbar.</p>
+            <p>On the right side, you can see the online users.</p>
+        </div>
+        <div id="message-field">
+            <form method="post" role="form">
+                <div class="form-group">
+                    <textarea class="form-control" id="message" name="message" placeholder="Write your message" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Post message" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <%if (userNames.length) { %>
+            <h3>Users online</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul>
+                        <% userNames.forEach(function(user) { %>
+                        <li><%=user.userName%></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        <% }%>
+    </div>
+</div>
+<% include footer%>
+
